@@ -14,14 +14,14 @@ abstract class AndroidApp(
         }
     }
 
-    private val signatures = signatures.mapTo(LinkedHashSet()) { it.hexFingerprint.encodeToByteArray() }
+    private val signatures = signatures.associateBy { it.hexFingerprint.encodeToByteArray() }
 
     fun isApp(`package`: String): Pair<Flavor, BuildType>? {
         return packageNames[`package`]
     }
 
-    fun isValidSignature(signature: ByteArray): Boolean {
-        return signature in signatures
+    fun isValidSignature(signature: ByteArray): Signature? {
+        return signatures[signature]
     }
 }
 
