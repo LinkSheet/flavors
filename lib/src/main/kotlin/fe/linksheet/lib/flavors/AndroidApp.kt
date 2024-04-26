@@ -14,25 +14,25 @@ abstract class AndroidApp(
         }
     }
 
-    private val signatures = signatures.associateBy { it.hexFingerprint.encodeToByteArray() }
+    private val signatures = signatures.associateBy { it.fingerprint.lowercase() }
 
     fun isApp(`package`: String): Pair<Flavor, BuildType>? {
         return packageNames[`package`]
     }
 
-    fun isValidSignature(signature: ByteArray): Signature? {
-        return signatures[signature]
+    fun isValidSignature(fingerprint: String): Signature? {
+        return signatures[fingerprint.lowercase()]
     }
 }
 
 @JvmInline
-value class Signature(val hexFingerprint: String) {
+value class Signature(val fingerprint: String) {
     companion object {
         private val hexRegex = Regex("[A-Za-z0-9]{64}")
     }
 
     init {
-        require(hexFingerprint.matches(hexRegex)) { "Fingerprint must be a hex string!" }
+        require(fingerprint.matches(hexRegex)) { "Fingerprint must be a hex string!" }
     }
 }
 
