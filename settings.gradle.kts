@@ -75,7 +75,5 @@ if(file("apkmirror").exists()) {
 buildSettings {
     substitutes {
         trySubstitute(Grrfe.std, properties["kotlin-ext.dir"])
-        trySubstitute(Grrfe.httpkt, properties["httpkt.dir"])
-        trySubstitute(_1fexd.composeKit, properties["composekit.dir"])
     }
 }
