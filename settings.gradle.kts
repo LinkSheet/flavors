@@ -74,6 +74,8 @@ if(file("apkmirror").exists()) {
     includeProject(":apkmirror", "apkmirror")
 }
 
+include(":platform")
+
 buildSettings {
     substitutes {
         trySubstitute(Grrfe.std, properties["kotlin-ext.dir"])
