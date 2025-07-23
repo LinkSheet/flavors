@@ -21,8 +21,6 @@ pluginManagement {
     plugins {
         id("de.fayard.refreshVersions") version "0.60.5"
         id("org.gradle.toolchains.foojay-resolver-convention") version "0.10.0"
-////                                                       # available:"1.0.0-rc-1"
-////                                                       # available:"1.0.0"
         id("net.nemerosa.versioning")
         id("com.android.library")
         id("org.jetbrains.kotlin.android")
@@ -70,11 +68,12 @@ extra.properties["gradle.build.dir"]
 
 
 includeProject(":core", "core")
-if(file("apkmirror").exists()) {
+
+if (!hasJitpackEnv) {
     includeProject(":apkmirror", "apkmirror")
 }
 
-include(":platform")
+includeProject(":platform", "platform")
 
 buildSettings {
     substitutes {

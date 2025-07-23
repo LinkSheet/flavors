@@ -18,7 +18,6 @@ import fe.buildlogic.version.AndroidVersionStrategy
 plugins {
     id("org.jetbrains.kotlin.android") apply false
     id("com.android.library") apply false
-    id("org.jetbrains.kotlin.plugin.compose") apply false
     id("net.nemerosa.versioning") apply false
     id("com.gitlab.grrfe.new-build-logic-plugin")
     id("com.gitlab.grrfe.library-build-plugin")
