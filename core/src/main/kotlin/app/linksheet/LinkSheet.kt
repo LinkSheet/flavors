@@ -44,10 +44,14 @@ public object LinkSheet : LinkSheetApp(
         return null
     }
 
-    private fun tryStart(activity: Activity, uri: Uri, cmp: ComponentName): IResult<Unit> {
-        val intent = buildIntent(Intent.ACTION_VIEW, uri, cmp) {
+    public fun createIntent(uri: Uri, componentName: ComponentName): Intent {
+        return buildIntent(Intent.ACTION_VIEW, uri, componentName) {
             addCategory(Intent.CATEGORY_BROWSABLE)
         }
+    }
+
+    private fun tryStart(activity: Activity, uri: Uri, cmp: ComponentName): IResult<Unit> {
+        val intent = createIntent(uri, cmp)
         return tryCatch { activity.startActivity(intent) }
     }
 }
