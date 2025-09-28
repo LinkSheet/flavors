@@ -1,4 +1,4 @@
-package fe.linksheet.lib.flavors
+package app.linksheet.lib.flavors
 
 
 public data class Signature(val name: String, val fingerprint: String) {

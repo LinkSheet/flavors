@@ -1,4 +1,4 @@
-package fe.linksheet.lib.flavors
+package app.linksheet.lib.flavors
 
 public abstract class AndroidApp(
     public val basePackage: String,

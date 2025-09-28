@@ -1,4 +1,4 @@
-package fe.linksheet.lib.flavors
+package app.linksheet.lib.flavors
 
 
 public abstract class LinkSheetApp(
@@ -11,7 +11,7 @@ public abstract class LinkSheetApp(
     public companion object {
     }
 
-    public typealias LinkSheet = app.linksheet.LinkSheet
+    public typealias LinkSheet = app.linksheet.lib.flavors.LinkSheet
 
     public data object Compat : LinkSheetApp(
         basePackage = "fe.linksheet.compat",

@@ -1,4 +1,4 @@
-package app.linksheet
+package app.linksheet.lib.flavors
 
 import android.app.Activity
 import android.content.ComponentName
@@ -8,14 +8,10 @@ import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.net.Uri
 import fe.composekit.intent.buildIntent
-import fe.linksheet.lib.flavors.Flavor
-import fe.linksheet.lib.flavors.LinkSheetApp
 import fe.std.result.IResult
 import fe.std.result.getOrNull
 import fe.std.result.isSuccess
 import fe.std.result.tryCatch
-import kotlin.collections.component1
-import kotlin.collections.component2
 import kotlin.collections.iterator
 
 public object LinkSheet : LinkSheetApp(

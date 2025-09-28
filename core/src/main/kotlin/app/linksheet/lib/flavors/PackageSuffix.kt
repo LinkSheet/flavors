@@ -1,4 +1,4 @@
-package fe.linksheet.lib.flavors
+package app.linksheet.lib.flavors
 
 
 public abstract class PackageSuffix(suffix: String?) {
@@ -15,6 +15,6 @@ public class BuildType(public val name: String, public val priority: Int, suffix
     public companion object {
         public val Release: BuildType = BuildType("Release", 2, null)
         public val Nightly: BuildType = BuildType("Nightly", 1, "nightly")
-        public val Debug: BuildType = BuildType("Debug", 0, "debug")
+        public val Debug: BuildType = BuildType("Debug", 0, "")
     }
 }
