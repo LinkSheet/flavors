@@ -56,8 +56,6 @@ configureRepositories(
     MavenRepository.Google,
     MavenRepository.MavenCentral,
     MavenRepository.Jitpack,
-    MavenRepository.Mozilla,
-    MavenRepository("https://oss.sonatype.org/content/repositories/snapshots"),
     mode = RepositoriesMode.FAIL_ON_PROJECT_REPOS
 )
 

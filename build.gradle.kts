@@ -55,9 +55,7 @@ subprojects {
     if (!isPlatform && !isTestApp) {
         kotlinAndroidProxy().run {
             jvmToolchain(Version.JVM)
-            if(name == "core") {
-                explicitApiWarning()
-            }
+            explicitApiWarning()
             addCompilerOptions(CompilerOption.NestedTypeAliases)
         }
 
@@ -78,7 +76,7 @@ subprojects {
             publishing {
                 singleVariant(PublicationName2.Release) {
                     withSourcesJar()
-                   // Disable for now https://github.com/Kotlin/dokka/issues/2956#issuecomment-2191606810
+                    // Disable for now https://github.com/Kotlin/dokka/issues/2956#issuecomment-2191606810
 //                    withJavadocJar()
                 }
             }
