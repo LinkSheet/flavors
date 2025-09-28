@@ -68,11 +68,6 @@ extra.properties["gradle.build.dir"]
 
 
 includeProject(":core", "core")
-
-if (!hasJitpackEnv) {
-    includeProject(":apkmirror", "apkmirror")
-}
-
 includeProject(":platform", "platform")
 
 buildSettings {
