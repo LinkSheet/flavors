@@ -19,6 +19,6 @@ public abstract class LinkSheetApp(
     )
 
     public data object Assist : LinkSheetApp(
-        basePackage = "fe.linksheet.assist"
+        basePackage = "app.linksheet.assist"
     )
 }
