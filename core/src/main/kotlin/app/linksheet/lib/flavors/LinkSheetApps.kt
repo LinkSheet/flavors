@@ -11,8 +11,6 @@ public abstract class LinkSheetApp(
     public companion object {
     }
 
-    public typealias LinkSheet = app.linksheet.lib.flavors.LinkSheet
-
     public data object Compat : LinkSheetApp(
         basePackage = "fe.linksheet.compat",
         buildTypes = setOf(BuildType.Release, BuildType.Debug),

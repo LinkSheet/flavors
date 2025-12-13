@@ -10,6 +10,7 @@ dependencies {
 
     implementation(platform(_1fexd.composeKit.bom))
     implementation(_1fexd.composeKit.core)
+    implementation(AndroidX.core.ktx)
 
     testImplementation(kotlin("test"))
     testImplementation("com.willowtreeapps.assertk:assertk:_")

@@ -56,7 +56,7 @@ subprojects {
         kotlinAndroidProxy().run {
             jvmToolchain(Version.JVM)
             explicitApiWarning()
-            addCompilerOptions(CompilerOption.NestedTypeAliases)
+            addCompilerOptions(CompilerOption.NestedTypeAliases, CompilerOption.SkipPreReleaseCheck)
         }
 
         androidLibraryProxy().run {
