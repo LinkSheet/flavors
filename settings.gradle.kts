@@ -21,6 +21,8 @@ pluginManagement {
     plugins {
         id("de.fayard.refreshVersions") version "0.60.6"
         id("org.gradle.toolchains.foojay-resolver-convention") version "0.10.0"
+////                                                       # available:"1.0.0-rc-1"
+////                                                       # available:"1.0.0"
         id("net.nemerosa.versioning")
         id("com.android.library")
         id("org.jetbrains.kotlin.android")
@@ -66,6 +68,9 @@ extra.properties["gradle.build.dir"]
 
 
 includeProject(":core", "core")
+includeProject(":interconnect-core", "interconnect/core")
+includeProject(":interconnect-client", "interconnect/client")
+includeProject(":interconnect-test-app", "interconnect/test-app")
 includeProject(":platform", "platform")
 
 buildSettings {
