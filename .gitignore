@@ -6,3 +6,5 @@
 apkmirror
 .kotlin
 local.properties
+interconnect/client/build
+interconnect/core/build

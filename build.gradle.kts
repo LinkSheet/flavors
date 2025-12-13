@@ -75,7 +75,9 @@ subprojects {
 
             publishing {
                 singleVariant(PublicationName2.Release) {
-                    withSourcesJar()
+                    if(this@subprojects.name != "interconnect-core") {
+                        withSourcesJar()
+                    }
                     // Disable for now https://github.com/Kotlin/dokka/issues/2956#issuecomment-2191606810
 //                    withJavadocJar()
                 }
