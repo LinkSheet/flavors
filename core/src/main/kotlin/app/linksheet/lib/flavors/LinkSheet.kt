@@ -43,7 +43,7 @@ public class LinkSheet(
     }
 }
 
-public object BottomSheet {
+public object BottomSheetLauncher {
     public fun start(
         components: List<LinkSheetComponent.BottomSheet>,
         activity: Activity,
@@ -62,17 +62,21 @@ public object BottomSheet {
         return result.isSuccess
     }
 
-    private fun tryStart(activity: Activity, uri: Uri, cmp: ComponentName): Result<Unit> {
+    public fun createIntent(uri: Uri, cmp: ComponentName): Intent {
         val intent = Intent(Intent.ACTION_VIEW, uri)
         intent.component = cmp
         intent.addCategory(Intent.CATEGORY_BROWSABLE)
+        return intent
+    }
+
+    private fun tryStart(activity: Activity, uri: Uri, cmp: ComponentName): Result<Unit> {
+        val intent = createIntent(uri, cmp)
         return runCatching { activity.startActivity(intent) }
     }
 }
 
 public sealed class LinkSheetComponent(public val componentName: ComponentName) {
     public val packageName: String = componentName.packageName
-
 
     public class BottomSheet(cmp: ComponentName, public val activity: ActivityInfo) : LinkSheetComponent(cmp)
     public class Interconnect(cmp: ComponentName, public val service: ServiceInfo) : LinkSheetComponent(cmp)
