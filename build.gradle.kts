@@ -4,8 +4,6 @@ import com.gitlab.grrfe.gradlebuild.common.extension.isPlatform
 import com.gitlab.grrfe.gradlebuild.common.extension.isTestApp
 import com.gitlab.grrfe.gradlebuild.library.publishing.PublicationComponent2
 import com.gitlab.grrfe.gradlebuild.library.publishing.PublicationName2
-import com.gitlab.grrfe.gradlebuild.util.accessor.implementationProxy
-import fe.build.dependencies.Grrfe
 import fe.buildlogic.Plugins
 import fe.buildlogic.Version
 import fe.buildlogic.accessor.androidLibraryProxy
@@ -64,7 +62,7 @@ subprojects {
             compileSdk = AndroidSdk.COMPILE_SDK
 
             defaultConfig {
-                minSdk = AndroidSdk.MIN_SDK
+                minSdk = 24
                 testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
                 testOptions.unitTests.isIncludeAndroidResources = true
             }
