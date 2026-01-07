@@ -67,9 +67,7 @@ subprojects {
                 testOptions.unitTests.isIncludeAndroidResources = true
             }
 
-            lint {
-                disable.add("EmptyNavDeepLink")
-            }
+            lint { disable.add("EmptyNavDeepLink") }
 
             publishing {
                 singleVariant(PublicationName2.Release) {
@@ -82,7 +80,6 @@ subprojects {
             }
         }
 
-        this@subprojects.dependencies {
-        }
+        this@subprojects.dependencies {}
     }
 }
