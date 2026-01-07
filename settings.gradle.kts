@@ -18,7 +18,6 @@ pluginManagement {
 
     plugins {
         id("de.fayard.refreshVersions") version "0.60.6"
-        id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
         id("net.nemerosa.versioning")
         id("com.android.library")
         id("org.jetbrains.kotlin.android")
@@ -46,7 +45,6 @@ pluginManagement {
 
 plugins {
     id("de.fayard.refreshVersions")
-    id("org.gradle.toolchains.foojay-resolver-convention")
     id("com.gitlab.grrfe.build-settings-plugin")
 }
 
