@@ -1,10 +1,10 @@
 @file:Suppress("UnstableApiUsage")
 
+import com.gitlab.grrfe.gradlebuild.config.MavenRepository
+import com.gitlab.grrfe.gradlebuild.config.configureRepositories
+import com.gitlab.grrfe.gradlebuild.extension.includeProject
 import com.gitlab.grrfe.gradlebuild.maybeConfigureIncludingRootRefreshVersions
 import fe.build.dependencies.Grrfe
-import fe.buildsettings.config.MavenRepository
-import fe.buildsettings.config.configureRepositories
-import fe.buildsettings.extension.includeProject
 
 rootProject.name = "flavors"
 
@@ -45,7 +45,7 @@ pluginManagement {
 
 plugins {
     id("de.fayard.refreshVersions")
-    id("com.gitlab.grrfe.build-settings-plugin")
+    id("com.gitlab.grrfe.settings-build-plugin")
 }
 
 configureRepositories(

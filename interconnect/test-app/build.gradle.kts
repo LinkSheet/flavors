@@ -1,12 +1,9 @@
 import com.gitlab.grrfe.gradlebuild.android.AndroidSdk
 import fe.build.dependencies.Grrfe
-import fe.buildlogic.Version
-import fe.buildlogic.common.CompilerOption
-import fe.buildlogic.common.extension.addCompilerOptions
+
 
 plugins {
     id("com.android.application")
-    id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.plugin.compose")
 }
 
@@ -40,16 +37,16 @@ android {
         }
     }
 
-    kotlin {
-        jvmToolchain(Version.JVM)
-        addCompilerOptions(CompilerOption.SkipPreReleaseCheck)
-    }
-
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+}
+
+kotlin {
+    jvmToolchain(com.gitlab.grrfe.gradlebuild.Version.JVM)
+//        addCompilerOptions(CompilerOption.SkipPreReleaseCheck)
 }
 
 dependencies {
