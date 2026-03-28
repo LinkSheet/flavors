@@ -23,6 +23,12 @@ plugins {
 
 val baseGroup = "com.github.Linksheet.flavors"
 
+fun Project.toNamespace() = buildString {
+    append(baseGroup)
+    append(".")
+    append(name.replace("-", ""))
+}
+
 subprojects {
     logger.quiet("Init for $this, isTestApp=$isTestApp, isPlatform=$isPlatform")
 
@@ -54,11 +60,16 @@ subprojects {
         (kotlinExtension as KotlinAndroidProjectExtension).apply {
             jvmToolchain(Version.JVM)
             explicitApiWarning()
-            compilerOptions.freeCompilerArgs.addAll(KotlinCompilerArgs.createCompilerOptions(CompilerOption.NestedTypeAliases, CompilerOption.SkipPreReleaseCheck))
+            compilerOptions.freeCompilerArgs.addAll(
+                KotlinCompilerArgs.createCompilerOptions(
+                    CompilerOption.NestedTypeAliases,
+                    CompilerOption.SkipPreReleaseCheck
+                )
+            )
         }
 
         androidLibraryProxy().run {
-            namespace = baseGroup
+            namespace = project.toNamespace()
             compileSdk = AndroidSdk.COMPILE_SDK
 
             defaultConfig {
@@ -71,7 +82,7 @@ subprojects {
 
             publishing {
                 singleVariant(PublicationName2.Release) {
-                    if(this@subprojects.name != "interconnect-core") {
+                    if (this@subprojects.name != "interconnect-core") {
                         withSourcesJar()
                     }
                     // Disable for now https://github.com/Kotlin/dokka/issues/2956#issuecomment-2191606810
