@@ -1,4 +1,6 @@
 import com.gitlab.grrfe.gradlebuild.android.AndroidSdk
+import com.gitlab.grrfe.gradlebuild.common.CompilerOption
+import com.gitlab.grrfe.gradlebuild.common.KotlinCompilerArgs
 import fe.build.dependencies.Grrfe
 
 
@@ -46,7 +48,11 @@ android {
 
 kotlin {
     jvmToolchain(com.gitlab.grrfe.gradlebuild.Version.JVM)
-//        addCompilerOptions(CompilerOption.SkipPreReleaseCheck)
+    compilerOptions.freeCompilerArgs.addAll(
+        KotlinCompilerArgs.createCompilerOptions(
+            CompilerOption.SkipPreReleaseCheck
+        )
+    )
 }
 
 dependencies {
