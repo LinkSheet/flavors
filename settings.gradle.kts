@@ -1,9 +1,12 @@
 @file:Suppress("UnstableApiUsage")
 
-import com.gitlab.grrfe.gradlebuild.config.MavenRepository
 import com.gitlab.grrfe.gradlebuild.config.configureRepositories
 import com.gitlab.grrfe.gradlebuild.extension.includeProject
 import com.gitlab.grrfe.gradlebuild.maybeConfigureIncludingRootRefreshVersions
+import com.gitlab.grrfe.gradlebuild.repository.MavenRepository
+import com.gitlab.grrfe.gradlebuild.repository.google
+import com.gitlab.grrfe.gradlebuild.repository.jitpack
+import com.gitlab.grrfe.gradlebuild.repository.mavenCentral
 import fe.build.dependencies.Grrfe
 
 rootProject.name = "flavors"
@@ -18,7 +21,6 @@ pluginManagement {
 
     plugins {
         id("de.fayard.refreshVersions") version "0.60.6"
-        id("net.nemerosa.versioning")
         id("com.android.library")
         id("org.jetbrains.kotlin.android")
     }
@@ -26,19 +28,16 @@ pluginManagement {
     when (val gradleBuildDir = extra.properties["gradle.build.dir"]) {
         null -> {
             val gradleBuildVersion = extra.properties["gradle.build.version"]
-            val plugins = extra.properties["gradle.build.plugins"]
-                .toString().trim().split(",")
-                .map { it.trim().split("=") }
-                .filter { it.size == 2 }
-                .associate { it[0] to it[1] }
-
             resolutionStrategy {
                 eachPlugin {
-                    plugins[requested.id.id]?.let { useModule("$it:$gradleBuildVersion") }
+                    with(requested.id) {
+                        if (namespace == "com.gitlab.grrfe") {
+                            useModule("com.gitlab.grrfe.gradle-build:$name:$gradleBuildVersion")
+                        }
+                    }
                 }
             }
         }
-
         else -> includeBuild(gradleBuildDir.toString())
     }
 }
@@ -49,9 +48,9 @@ plugins {
 }
 
 configureRepositories(
-    MavenRepository.Google,
-    MavenRepository.MavenCentral,
-    MavenRepository.Jitpack,
+    MavenRepository.google(),
+    MavenRepository.mavenCentral(),
+    MavenRepository.jitpack(),
     mode = RepositoriesMode.FAIL_ON_PROJECT_REPOS
 )
 
@@ -62,12 +61,15 @@ extra.properties["gradle.build.dir"]
 
 
 includeProject(":core", "core")
-includeProject(":interconnect-core", "interconnect/core")
-includeProject(":interconnect-client", "interconnect/client")
-includeProject(":interconnect-test-app", "interconnect/test-app")
 includeProject(":platform", "platform")
 
 buildSettings {
+    projects("interconnect") {
+        includeProject(":interconnect-core", "core")
+        includeProject(":interconnect-client", "client")
+        includeProject(":interconnect-test-app", "test-app")
+    }
+
     substitutes {
         trySubstitute(Grrfe.std, properties["kotlin-ext.dir"])
     }

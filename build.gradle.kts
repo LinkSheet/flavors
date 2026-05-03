@@ -2,21 +2,17 @@ import com.gitlab.grrfe.gradlebuild.Plugins
 import com.gitlab.grrfe.gradlebuild.PublicationComponent2
 import com.gitlab.grrfe.gradlebuild.PublicationName2
 import com.gitlab.grrfe.gradlebuild.Version
-import com.gitlab.grrfe.gradlebuild.accessor.androidLibraryProxy
 import com.gitlab.grrfe.gradlebuild.android.AndroidSdk
+import com.gitlab.grrfe.gradlebuild.android.accessor.androidLibraryExtension
 import com.gitlab.grrfe.gradlebuild.android.extension.singleVariant
 import com.gitlab.grrfe.gradlebuild.android.version.AndroidVersionStrategy
 import com.gitlab.grrfe.gradlebuild.applyPlugin
-import com.gitlab.grrfe.gradlebuild.common.CompilerOption
-import com.gitlab.grrfe.gradlebuild.common.KotlinCompilerArgs
 import com.gitlab.grrfe.gradlebuild.extension.isPlatform
 import com.gitlab.grrfe.gradlebuild.extension.isTestApp
-import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.kotlinExtension
 
 plugins {
     id("com.android.library") apply false
-    id("net.nemerosa.versioning") apply false
     id("com.gitlab.grrfe.android-build-plugin") apply false
     id("com.gitlab.grrfe.library-build-plugin")
 }
@@ -30,6 +26,7 @@ fun Project.toNamespace() = buildString {
 }
 
 subprojects {
+    val subProject = this
     logger.quiet("Init for $this, isTestApp=$isTestApp, isPlatform=$isPlatform")
 
     if (!isTestApp && !isPlatform) {
@@ -38,15 +35,13 @@ subprojects {
 
     applyPlugin(
         Plugins.MavenPublish,
-//        Plugins.GrrfeNewBuildLogic,
+        Plugins.GrrfeAndroidBuild,
         Plugins.GrrfeLibraryBuild,
-        Plugins.NemerosaVersioning
     )
 
     group = baseGroup
     library {
-        val now = System.currentTimeMillis()
-        versionStrategy.set(AndroidVersionStrategy(now))
+        versionStrategy.set(AndroidVersionStrategy)
 
         if (!isTestApp) {
             publication {
@@ -57,19 +52,13 @@ subprojects {
     }
 
     if (!isPlatform && !isTestApp) {
-        (kotlinExtension as KotlinAndroidProjectExtension).apply {
+        kotlinExtension.apply {
             jvmToolchain(Version.JVM)
             explicitApiWarning()
-            compilerOptions.freeCompilerArgs.addAll(
-                KotlinCompilerArgs.createCompilerOptions(
-                    CompilerOption.NestedTypeAliases,
-                    CompilerOption.SkipPreReleaseCheck
-                )
-            )
         }
 
-        androidLibraryProxy().run {
-            namespace = project.toNamespace()
+        androidLibraryExtension.apply {
+            namespace = subProject.toNamespace()
             compileSdk = AndroidSdk.COMPILE_SDK
 
             defaultConfig {
