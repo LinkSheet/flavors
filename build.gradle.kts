@@ -5,7 +5,6 @@ import com.gitlab.grrfe.gradlebuild.Version
 import com.gitlab.grrfe.gradlebuild.android.AndroidSdk
 import com.gitlab.grrfe.gradlebuild.android.accessor.androidLibraryExtension
 import com.gitlab.grrfe.gradlebuild.android.extension.singleVariant
-import com.gitlab.grrfe.gradlebuild.android.version.AndroidVersionStrategy
 import com.gitlab.grrfe.gradlebuild.applyPlugin
 import com.gitlab.grrfe.gradlebuild.extension.isPlatform
 import com.gitlab.grrfe.gradlebuild.extension.isTestApp
@@ -13,8 +12,9 @@ import org.jetbrains.kotlin.gradle.dsl.kotlinExtension
 
 plugins {
     id("com.android.library") apply false
-    id("com.gitlab.grrfe.android-build-plugin") apply false
+    id("com.gitlab.grrfe.android-build-plugin")
     id("com.gitlab.grrfe.library-build-plugin")
+    id("org.jetbrains.kotlin.plugin.parcelize") apply false
 }
 
 val baseGroup = "com.github.Linksheet.flavors"
@@ -33,25 +33,26 @@ subprojects {
         applyPlugin(Plugins.AndroidLibrary)
     }
 
+
+    if (!isTestApp) {
+        applyPlugin(Plugins.GrrfeLibraryBuild)
+    }
+
     applyPlugin(
         Plugins.MavenPublish,
         Plugins.GrrfeAndroidBuild,
-        Plugins.GrrfeLibraryBuild,
     )
 
     group = baseGroup
-    library {
-        versionStrategy.set(AndroidVersionStrategy)
 
-        if (!isTestApp) {
+    if (!isPlatform && !isTestApp) {
+        library {
             publication {
                 name.set(PublicationName2.Release)
                 component.set(if (isPlatform) PublicationComponent2.JavaPlatform else PublicationComponent2.Android)
             }
         }
-    }
 
-    if (!isPlatform && !isTestApp) {
         kotlinExtension.apply {
             jvmToolchain(Version.JVM)
             explicitApiWarning()

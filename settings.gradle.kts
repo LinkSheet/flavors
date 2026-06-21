@@ -69,6 +69,10 @@ buildSettings {
         includeProject(":interconnect-client", "client")
         includeProject(":interconnect-test-app", "test-app")
     }
+    projects("sdk") {
+        includeProject(":sdk-rule-plugin", "rule-plugin")
+        includeProject(":sdk-common", "common")
+    }
 
     substitutes {
         trySubstitute(Grrfe.std, properties["kotlin-ext.dir"])
