@@ -60,7 +60,7 @@ subprojects {
 
         androidLibraryExtension.apply {
             namespace = subProject.toNamespace()
-            compileSdk = AndroidSdk.COMPILE_SDK
+            compileSdk = 37
 
             defaultConfig {
                 minSdk = 24
