@@ -7,5 +7,5 @@ dependencies {
 
     testImplementation(kotlin("test"))
     testImplementation("com.willowtreeapps.assertk:assertk:_")
-    testImplementation(Grrfe.std.test)
+    testImplementation(Grrfe.std.test.withVersion("0.0.165"))
 }

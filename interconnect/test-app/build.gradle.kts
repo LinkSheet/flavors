@@ -70,7 +70,7 @@ dependencies {
     implementation(AndroidX.compose.material.icons.core)
     debugImplementation(AndroidX.compose.ui.tooling)
 
-    testImplementation(Grrfe.std.result.assert)
+    testImplementation(Grrfe.std.result.assert.withVersion("0.0.165"))
     testImplementation(Koin.test)
     testImplementation(Koin.junit4)
     testImplementation(Koin.android)
